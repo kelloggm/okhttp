@@ -233,7 +233,10 @@ public final class Util {
     List<String> result = new ArrayList<>();
     for (String a : first) {
       for (String b : second) {
-        if (comparator.compare(a, b) == 0) {
+        @SuppressWarnings("https") int value = comparator.compare(a, b);
+        //FALSE POSITIVE: this code manifestly is generic over https, but the checker
+        //                issues a warning related to generics
+        if (value == 0) {
           result.add(a);
           break;
         }
